@@ -20,3 +20,5 @@ Rules:
 - UNKNOWN REMAINS UNKNOWN
 
 Farm 59 does not train a model. Its first executable layer is a deterministic evaluator for paired before/after benchmark records.
+
+Validation trigger: 2026-09-18 batch verification.
