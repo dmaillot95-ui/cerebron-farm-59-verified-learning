@@ -1,0 +1,30 @@
+{
+  "farm_id": 59,
+  "name": "verified-learning",
+  "toolbox": "C06-LEARN",
+  "rules": [
+    "REALITY > COHERENCE",
+    "EVIDENCE > CONFIDENCE",
+    "CLAIM <= EVIDENCE",
+    "MEMORY != LEARNING",
+    "FILE CHANGE != LEARNING",
+    "PROMPT CHANGE != LEARNING",
+    "BENCHMARK GAIN != GENERAL CAPABILITY",
+    "ABLATION BEFORE ADDITION",
+    "VERIFY BEFORE COMMIT",
+    "REGRESSION CHECK BEFORE ACCEPT"
+  ],
+  "statuses": [
+    "VERIFIED",
+    "SUPPORTED",
+    "PRELIMINARY",
+    "CONTRADICTORY",
+    "FAILED",
+    "UNKNOWN"
+  ],
+  "acceptance": {
+    "requires_same_benchmark": true,
+    "requires_ablation": true,
+    "requires_regression_check": true
+  }
+}
