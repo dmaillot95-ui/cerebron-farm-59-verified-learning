@@ -1,0 +1,17 @@
+name: FARM59 Verified Learning MVP
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tools/validate_config.py
+      - run: python worker/learning_mvp.py
+      - run: pip install -q pytest
+      - run: pytest -q
