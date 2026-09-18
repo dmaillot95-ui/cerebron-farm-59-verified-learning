@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "required": [
+    "job_id",
+    "project_id",
+    "farm_id",
+    "toolbox_id",
+    "task_type",
+    "configuration_id",
+    "engine",
+    "outputs",
+    "validation",
+    "evidence_level",
+    "status"
+  ],
+  "properties": {
+    "job_id": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "farm_id": {
+      "const": 59
+    },
+    "toolbox_id": {
+      "const": "C06-LEARN"
+    },
+    "task_type": {
+      "type": "string"
+    },
+    "configuration_id": {
+      "type": "string"
+    },
+    "engine": {
+      "type": "string"
+    },
+    "outputs": {
+      "type": "array"
+    },
+    "validation": {
+      "type": "object"
+    },
+    "evidence_level": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}
