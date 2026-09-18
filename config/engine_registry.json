@@ -1,0 +1,25 @@
+{
+  "engines": [
+    {
+      "engine_id": "PY-PAIRED-EVAL-MVP",
+      "name": "Deterministic Paired Benchmark Evaluator",
+      "category": "evaluation",
+      "license": "Python-stdlib",
+      "cost": 0,
+      "local_or_cloud": "github-actions",
+      "version": "1",
+      "capabilities": [
+        "paired before-after scoring",
+        "regression detection",
+        "accept-or-rollback decision"
+      ],
+      "limitations": [
+        "finite benchmark only",
+        "does not prove general learning",
+        "does not train models"
+      ],
+      "validation_status": "PRELIMINARY",
+      "benchmark_status": "SELF_TEST_PENDING"
+    }
+  ]
+}
