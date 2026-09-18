@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "required": [
+    "artifact_id",
+    "job_id",
+    "kind",
+    "sha256",
+    "provenance"
+  ],
+  "properties": {
+    "artifact_id": {
+      "type": "string"
+    },
+    "job_id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "sha256": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "object"
+    }
+  }
+}
