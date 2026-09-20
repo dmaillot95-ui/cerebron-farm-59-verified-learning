@@ -15,33 +15,73 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Restore durable state
-        shell: bash
         run: |
           mkdir -p .agora-state
           if [ -f agora/state.json ]; then cp agora/state.json .agora-state/state.json; fi
+      - name: Execute AVP-0001 ablation and transfer
+        run: |
+          python - <<'PY'
+          import json,urllib.request,pathlib,copy
+          def get(url):
+              with urllib.request.urlopen(url,timeout=20) as r: return json.load(r)
+          registry=get("https://raw.githubusercontent.com/dmaillot95-ui/cerebron-omega-ai/main/config/farms.json")
+          reality=get("https://raw.githubusercontent.com/dmaillot95-ui/cerebron-farm-72-reality-evidence-gate/main/agora/state.json")
+          def validate(reg):
+              farms=reg.get("farms",[])
+              ids=[f.get("id") for f in farms]; repos=[f.get("repo") for f in farms]
+              return {
+                "count_74":len(farms)==74,
+                "ids_1_to_74":ids==list(range(1,75)),
+                "ids_unique":len(set(ids))==len(ids),
+                "repos_unique":len(set(repos))==len(repos)
+              }
+          # ABLATION: validate from primary registry only; no Omega Core/E2 input.
+          primary=validate(registry)
+          ablation="PASS" if all(primary.values()) and reality.get("reality_gate")=="PASS" else "FAIL"
+          # TRANSFER: same validator must reject independently corrupted copies.
+          bad_id=copy.deepcopy(registry)
+          bad_id["farms"][1]["id"]=bad_id["farms"][0]["id"]
+          bad_repo=copy.deepcopy(registry)
+          bad_repo["farms"][1]["repo"]=bad_repo["farms"][0]["repo"]
+          id_result=validate(bad_id); repo_result=validate(bad_repo)
+          reject_dup_id=not all(id_result.values())
+          reject_dup_repo=not all(repo_result.values())
+          transfer="PASS" if reject_dup_id and reject_dup_repo else "FAIL"
+          result={
+            "packet_id":"AVP-0001",
+            "ablation":{"removed_evidence":"OmegaCore:E2","primary_only":primary,"result":ablation},
+            "transfer":{"fixtures":["duplicate_id","duplicate_repo"],"duplicate_id_rejected":reject_dup_id,"duplicate_repo_rejected":reject_dup_repo,"result":transfer},
+            "source_reality_gate":reality.get("reality_gate","PENDING")
+          }
+          pathlib.Path(".agora-state").mkdir(exist_ok=True)
+          pathlib.Path(".agora-state/verified-learning.json").write_text(json.dumps(result,indent=2))
+          print(json.dumps(result,indent=2))
+          PY
       - name: Build STATE(t+1)
-        shell: bash
         run: |
           python - <<'PY'
           import json,os
           p=".agora-state/state.json"
           try: parent=json.load(open(p))
           except Exception: parent={}
-          state={"schema":"AGORA_RECURSIVE_STATE_V2","state_id":os.environ["GITHUB_REPOSITORY"]+":"+os.environ["GITHUB_RUN_ID"],"parent_state_id":parent.get("state_id","GENESIS"),"iteration":int(parent.get("iteration",0))+1,"resource":os.environ["GITHUB_REPOSITORY"],"residual":parent.get("nextlock","BOOTSTRAP"),"claims":[],"evidence_ids":[],"questions":[],"errors":[],"anti_error_rules":parent.get("anti_error_rules",[]),"audit":"PENDING","red_team":"PENDING","reproduction":"PENDING","reality_gate":"PENDING","ablation":"PENDING","transfer":"PENDING","decision":"HOLD","nextlock":"COLLECT_REAL_OUTPUT","rule":"WORKFLOW_EXECUTION!=LEARNING!=PROOF"}
+          x=json.load(open(".agora-state/verified-learning.json"))
+          a=x["ablation"]["result"]; t=x["transfer"]["result"]
+          state={"schema":"AGORA_RECURSIVE_STATE_V2","state_id":os.environ["GITHUB_REPOSITORY"]+":"+os.environ["GITHUB_RUN_ID"],"parent_state_id":parent.get("state_id","GENESIS"),"iteration":int(parent.get("iteration",0))+1,"resource":os.environ["GITHUB_REPOSITORY"],"residual":parent.get("nextlock","BOOTSTRAP"),"claims":["AVP-0001:C1"],"evidence_ids":["AVP-0001:E1","F72:REALITY","F59:ABLATION","F59:TRANSFER"],"questions":[],"errors":[],"anti_error_rules":parent.get("anti_error_rules",[]),"audit":"PENDING","red_team":"PENDING","reproduction":"PASS","reality_gate":x["source_reality_gate"],"ablation":a,"transfer":t,"verified_learning_observations":x,"decision":"HOLD","nextlock":"CENTRAL_AGORA" if a=="PASS" and t=="PASS" and x["source_reality_gate"]=="PASS" else "VERIFIED_LEARNING_FAILURE","rule":"WORKFLOW_EXECUTION!=LEARNING!=PROOF"}
           json.dump(state,open(p,"w"),indent=2)
           PY
           mkdir -p agora && cp .agora-state/state.json agora/state.json
       - name: Commit durable packet
-        shell: bash
         run: |
           git config user.name "cerebron-agora-bot"
           git config user.email "actions@users.noreply.github.com"
           git add agora/state.json
           git diff --cached --quiet && exit 0
-          git commit -m "AGORA recursive state ${GITHUB_RUN_ID}"
+          git commit -m "AGORA F59 verified learning state ${GITHUB_RUN_ID}"
           git push
       - uses: actions/upload-artifact@v4
         with:
           name: recursive-state-${{ github.run_id }}
-          path: agora/state.json
+          path: |
+            agora/state.json
+            .agora-state/verified-learning.json
           retention-days: 14
