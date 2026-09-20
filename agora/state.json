@@ -1,22 +1,52 @@
 {
   "schema": "AGORA_RECURSIVE_STATE_V2",
-  "state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35518391602",
-  "parent_state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35517974087",
-  "iteration": 12,
+  "state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35519097213",
+  "parent_state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35518391602",
+  "iteration": 13,
   "resource": "dmaillot95-ui/cerebron-farm-59-verified-learning",
   "residual": "COLLECT_REAL_OUTPUT",
-  "claims": [],
-  "evidence_ids": [],
+  "claims": [
+    "AVP-0001:C1"
+  ],
+  "evidence_ids": [
+    "AVP-0001:E1",
+    "F72:REALITY",
+    "F59:ABLATION",
+    "F59:TRANSFER"
+  ],
   "questions": [],
   "errors": [],
   "anti_error_rules": [],
   "audit": "PENDING",
   "red_team": "PENDING",
-  "reproduction": "PENDING",
-  "reality_gate": "PENDING",
-  "ablation": "PENDING",
-  "transfer": "PENDING",
+  "reproduction": "PASS",
+  "reality_gate": "PASS",
+  "ablation": "PASS",
+  "transfer": "PASS",
+  "verified_learning_observations": {
+    "packet_id": "AVP-0001",
+    "ablation": {
+      "removed_evidence": "OmegaCore:E2",
+      "primary_only": {
+        "count_74": true,
+        "ids_1_to_74": true,
+        "ids_unique": true,
+        "repos_unique": true
+      },
+      "result": "PASS"
+    },
+    "transfer": {
+      "fixtures": [
+        "duplicate_id",
+        "duplicate_repo"
+      ],
+      "duplicate_id_rejected": true,
+      "duplicate_repo_rejected": true,
+      "result": "PASS"
+    },
+    "source_reality_gate": "PASS"
+  },
   "decision": "HOLD",
-  "nextlock": "COLLECT_REAL_OUTPUT",
+  "nextlock": "CENTRAL_AGORA",
   "rule": "WORKFLOW_EXECUTION!=LEARNING!=PROOF"
 }
