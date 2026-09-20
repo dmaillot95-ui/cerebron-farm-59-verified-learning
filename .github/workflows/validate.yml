@@ -14,4 +14,4 @@ jobs:
       - run: python tools/validate_config.py
       - run: python worker/learning_mvp.py
       - run: pip install -q pytest
-      - run: pytest -q
+      - run: python -m pytest -q
