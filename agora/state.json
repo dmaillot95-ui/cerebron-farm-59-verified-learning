@@ -1,10 +1,10 @@
 {
   "schema": "AGORA_RECURSIVE_STATE_V2",
-  "state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35519097213",
-  "parent_state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35518391602",
-  "iteration": 13,
+  "state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35519638783",
+  "parent_state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35519097213",
+  "iteration": 14,
   "resource": "dmaillot95-ui/cerebron-farm-59-verified-learning",
-  "residual": "COLLECT_REAL_OUTPUT",
+  "residual": "CENTRAL_AGORA",
   "claims": [
     "AVP-0001:C1"
   ],
