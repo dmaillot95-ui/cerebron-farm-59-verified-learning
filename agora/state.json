@@ -1,8 +1,8 @@
 {
   "schema": "AGORA_RECURSIVE_STATE_V2",
-  "state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35757230794",
-  "parent_state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35756292614",
-  "iteration": 295,
+  "state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35758020312",
+  "parent_state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35757230794",
+  "iteration": 296,
   "resource": "dmaillot95-ui/cerebron-farm-59-verified-learning",
   "residual": "VERIFIED_LEARNING_FAILURE",
   "claims": [
