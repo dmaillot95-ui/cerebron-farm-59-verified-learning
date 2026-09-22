@@ -1,8 +1,8 @@
 {
   "schema": "AGORA_RECURSIVE_STATE_V2",
-  "state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35748047258",
-  "parent_state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35746783197",
-  "iteration": 287,
+  "state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35749283858",
+  "parent_state_id": "dmaillot95-ui/cerebron-farm-59-verified-learning:35748047258",
+  "iteration": 288,
   "resource": "dmaillot95-ui/cerebron-farm-59-verified-learning",
   "residual": "CENTRAL_AGORA",
   "claims": [
@@ -20,20 +20,20 @@
   "audit": "PENDING",
   "red_team": "PENDING",
   "reproduction": "PASS",
-  "reality_gate": "PASS",
-  "ablation": "PASS",
+  "reality_gate": "FAIL",
+  "ablation": "FAIL",
   "transfer": "PASS",
   "verified_learning_observations": {
     "packet_id": "AVP-0001",
     "ablation": {
       "removed_evidence": "OmegaCore:E2",
       "primary_only": {
-        "count_74": true,
-        "ids_1_to_74": true,
+        "count_74": false,
+        "ids_1_to_74": false,
         "ids_unique": true,
         "repos_unique": true
       },
-      "result": "PASS"
+      "result": "FAIL"
     },
     "transfer": {
       "fixtures": [
@@ -44,9 +44,9 @@
       "duplicate_repo_rejected": true,
       "result": "PASS"
     },
-    "source_reality_gate": "PASS"
+    "source_reality_gate": "FAIL"
   },
   "decision": "HOLD",
-  "nextlock": "CENTRAL_AGORA",
+  "nextlock": "VERIFIED_LEARNING_FAILURE",
   "rule": "WORKFLOW_EXECUTION!=LEARNING!=PROOF"
 }
